@@ -84,7 +84,7 @@ namespace EKartMVCApp.Controllers
                 ViewBag.Email = Session["email"];
                 if (status)
                 {
-                    return Redirect("/Category/ViewCategories" + Session["username"]);
+                    return Redirect("/Category/ViewCategories?username=" + Session["username"]);
                 }
                 return View();
             }
