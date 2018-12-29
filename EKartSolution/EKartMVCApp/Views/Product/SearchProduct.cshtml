@@ -1,0 +1,56 @@
+﻿@model IEnumerable<EKartMVCApp.Models.Product>
+@{
+    ViewBag.Title = "Product Search";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+    WebGrid gridProducts = new WebGrid(Model, rowsPerPage: 5, canSort: true);
+}
+<head>
+
+</head>
+<link href="~/Content/Grid.css" rel="stylesheet" />
+<div class="col-md-3">
+</div>
+<div class="col-md-7">
+    <center><h2>Search Product</h2></center>
+    &nbsp;
+</div>
+<h4>Welcome: @Session["username"]</h4>
+<b>@Html.ActionLink("Update Customer Details", "UpdateCustomerDetails", "Customer")</b> ||
+<b>@Html.ActionLink("Change Password", "ChangePassword", "Customer")</b> ||
+<b class="text-center">@Html.ActionLink("Cart", "GetCart", "Product")</b> ||
+<b>@Html.ActionLink("Recent Orders", "GetRecentPurchases", "Purchase")</b>
+<hr />
+<br />
+@using (Html.BeginForm())
+{
+    <div class="row form-group">
+        <label class="control-label col-md-2">Choose Category</label>
+        <div class="col-md-10">
+            @Html.DropDownList("categoryId", new SelectList(ViewBag.CategoryList, "CategoryId", "CategoryName"), (string)ViewBag.SelectedCategory, htmlAttributes: new { @class = "form-control", @onchange = "this.form.submit()" })
+        </div>
+    </div>
+}
+@if (Model.Any())
+{
+    @gridProducts.GetHtml(
+                    tableStyle: "webgrid-table",
+                    headerStyle: "webgrid-header",
+                    alternatingRowStyle: "webgrid-alternating-row",
+                    columns: new[]
+                     {
+                         gridProducts.Column("ProductName", header: "Product Name"),
+                         gridProducts.Column("CategoryId", header: "Category Id"),
+                         gridProducts.Column("Price", header: "Price"),
+                         gridProducts.Column("QuantityAvailable", header: "Quantity Available"),
+                         gridProducts.Column("", format: @<text>
+
+            @Html.ActionLink("Add To Cart", "AddToCart","Product", new { id = item.ProductId },null)</text> , canSort: false)
+                     }
+                    );
+}
+else
+{
+    <div class="alert alert-danger">
+        No Products Found.
+    </div>
+}

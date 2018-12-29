@@ -1,0 +1,67 @@
+﻿@model IEnumerable<EKartMVCApp.Models.Product>
+
+@{
+    ViewBag.Title = "Category Details";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<head>
+    <style>
+        body {
+           /* background-image: url('../../Content/Backgrounds/img24.jpg');*/
+        }
+
+        #tableId{
+            background-color:white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-6">
+        <h1>Category Details</h1>
+    </div>
+    <h4>Welcome: @Session["username"]</h4>
+    <b>@Html.ActionLink("Update Customer Details", "UpdateCustomerDetails", "Customer")</b> ||
+    <b>@Html.ActionLink("Change Password", "ChangePassword", "Customer")</b> ||
+    <b>@Html.ActionLink("My Cart", "GetCart", "Product")</b>
+    <hr />
+    <table class="table" border="1" id="tableId">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityAvailable)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantityAvailable)
+                </td>
+                <td>
+                    @Html.ActionLink("Add To Cart", "AddToCart", "Product", new { id = item.ProductId }, null) |
+                    @Html.ActionLink("Product Details", "ProductDetails", "Product", new { id = item.ProductId }, null)
+                </td>
+            </tr>
+        }
+    </table>
+    <h4>
+        @Html.ActionLink("Back To Categories", "ViewCategories", "Category")
+    </h4>
+</body>

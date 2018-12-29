@@ -1,0 +1,181 @@
+﻿@model EKartMVCApp.Models.UpdateCustomerDetails
+
+@{
+    ViewBag.Title = "Update Customer Details";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<head>
+    <style type="text/css">
+        body {
+            background-image: url('../../Content/Backgrounds/img (4).jpg');
+        }
+
+        #heading {
+            color: white;
+            font-size: 35px;
+            border: double;
+            font-family: 'Comic Sans MS';
+        }
+
+        #btnUpdateCustomerDetails {
+            color: white;
+            background-color: crimson;
+            height: 40px;
+            width: 100px;
+            border-radius: 13px;
+            text-wrap: normal;
+        }
+
+        #btnCancel{
+             color: white;
+            background-color: crimson;
+            height: 40px;
+            width: 100px;
+            border-radius: 13px;
+            text-wrap: normal;
+        }
+
+        #labels {
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+    @using (Html.BeginForm("UpdateCustomerDetails", "Customer"))
+       { 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    &nbsp;
+                </div>
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                    </div>
+                    <div class="col-md-8" id="form_body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-9 text-center">
+                                    <h1 id="heading">Update Your Details</h1>
+                                    &nbsp;
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    Customer ID:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new {@Value = @ViewBag.CustomerID, @readonly = "readonly", @class = "form-control" } })               
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    First Name:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" , id="labels">
+                                    Last Name:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    Contact Number:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { style = "width:240px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    Address:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    City:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { style = "width:240px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    State:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.State, new { htmlAttributes = new { style = "width:240px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    Country:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.Country, new { htmlAttributes = new { style = "width:230px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    ZipCode:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { style = "width:180px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="submit" class="btn" value="Update" id="btnUpdateCustomerDetails"/>
+                                </div>
+                                &nbsp;
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h4>@Html.ActionLink("Back to Homepage", "ViewCategories", "Category")</h4>
+        </div>
+    }
+</body>

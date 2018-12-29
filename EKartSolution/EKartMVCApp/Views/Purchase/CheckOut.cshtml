@@ -1,0 +1,133 @@
+﻿@model EKartMVCApp.Models.CreditCard
+
+@{
+    ViewBag.Title = "Order Checkout";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<head>
+    <style>
+        body {
+            background-image: url('../../Content/Backgrounds/img24.jpg');
+        }
+
+        #btnCheckOut {
+            color: white;
+            background-color: crimson;
+            height: 40px;
+            width: 100px;
+            border-radius: 13px;
+            text-wrap: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-7">
+        <h1>Customer Check Out</h1>
+        &nbsp;
+    </div>
+    <h4>Welcome: @Session["username"]</h4>
+    <b>@Html.ActionLink("Update Customer Details", "UpdateCustomerDetails", "Customer")</b> ||
+    <b>@Html.ActionLink("Change Password", "ChangePassword", "Customer")</b> ||
+    <b class="text-center">@Html.ActionLink("Cart", "GetCart", "Product")</b> ||
+    <b>@Html.ActionLink("Recent Orders", "GetRecentPurchases", "Purchase")</b>
+    <hr />
+    <br />
+@using (Html.BeginForm("CheckOut", "Purchase"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new {@Value = @ViewBag.EmailID, @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NameOnCard, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameOnCard, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameOnCard, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CardType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "--SELECT--",
+                        Selected = true
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "MasterCard",
+                        Value = "MasterCard"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Visa",
+                        Value = "Visa"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "American Express",
+                        Value = "American Express"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Discover",
+                        Value = "Discover"
+                    });
+                }
+                @Html.DropDownListFor(model => model.CardType, listItems, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CardType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreditCardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreditCardNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreditCardNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CVV, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CVV, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CVV, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Checkout" class="btn" id="btnCheckOut"/>
+            </div>
+        </div>
+    </div>
+
+
+}
+<div>
+    <h4><b>@Html.ActionLink("Back To Cart", "GetCart", "Product", null, new { @style = "color:#000aaa;" })</b></h4>
+</div>
+
+</body>

@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Oops! We've Hit A Snag";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<head>
+    <style>
+        body {
+           background-color:antiquewhite; 
+        }
+    </style>
+</head>
+<body>
+    <br /><br />
+    <center><img src="~/Content/Backgrounds/biker-smash.gif" /></center>
+    <center><h2>Ooops! The world is a dark place.</h2></center>
+    <h4><b>@Html.ActionLink("Back To Safety", "LogIn", "User", null, new { @style = "color:blue;" })</b></h4>
+</body>
+
+

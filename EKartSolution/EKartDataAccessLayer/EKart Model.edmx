@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EKartDBDAL.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CardDetails">
+          <Key>
+            <PropertyRef Name="CardNumber" />
+          </Key>
+          <Property Name="CardNumber" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="NameOnCard" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" />
+          <Property Name="CardType" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="CVVNumber" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="ExpiryDate" Type="date" Nullable="false" />
+          <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryId" Type="tinyint" />
+          <Property Name="Price" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="QuantityAvailable" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseDetails">
+          <Key>
+            <PropertyRef Name="PurchaseId" />
+          </Key>
+          <Property Name="PurchaseId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" />
+          <Property Name="ProductId" Type="char" MaxLength="4" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" />
+          <Property Name="QuantityPurchased" Type="smallint" Nullable="false" />
+          <Property Name="DateOfPurchase" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryId" Type="tinyint" />
+          <Property Name="Price" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="RoleId" Type="tinyint" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="AddressLine" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_CategoryId">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmailId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="PurchaseDetails" Type="Self.PurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="EmailId" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="EmailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ProductId">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="PurchaseDetails" Type="Self.PurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkey_EmailId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="CardDetails" Type="Self.CardDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="EmailId" />
+            </Principal>
+            <Dependent Role="CardDetails">
+              <PropertyRef Name="EmailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ufn_FecthCardDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CardNumber" Type="numeric" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="NameOnCard" Type="varchar" MaxLength="40" Nullable="false" />
+                <Property Name="CardType" Type="varchar" MaxLength="18" Nullable="false" />
+                <Property Name="CVVNumber" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+                <Property Name="ExpiryDate" Type="date" Nullable="false" />
+                <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="ufn_FetchProductDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ProductId" Type="char" MaxLength="4" Nullable="false" />
+                <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+                <Property Name="Price" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+                <Property Name="QuantityAvailable" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="ufn_GetShoppingCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ProductId" Type="char" MaxLength="4" Nullable="false" />
+                <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+                <Property Name="CategoryId" Type="tinyint" />
+                <Property Name="Price" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+                <Property Name="Quantity" Type="int" Nullable="false" />
+                <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="usp_AddCardDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CardNumber" Type="varchar" Mode="In" />
+          <Parameter Name="NameOnCard" Type="varchar" Mode="In" />
+          <Parameter Name="CardType" Type="varchar" Mode="In" />
+          <Parameter Name="CVVNumber" Type="numeric" Mode="In" />
+          <Parameter Name="ExpiryDate" Type="date" Mode="In" />
+          <Parameter Name="Balance" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="usp_AddNewProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="char" Mode="In" />
+          <Parameter Name="ProductName" Type="varchar" Mode="In" />
+          <Parameter Name="CategoryId" Type="tinyint" Mode="In" />
+          <Parameter Name="Price" Type="numeric" Mode="In" />
+          <Parameter Name="QuantityAvailable" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_AddPurchaseDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailId" Type="varchar" Mode="In" />
+          <Parameter Name="ProductId" Type="char" Mode="In" />
+          <Parameter Name="QuantityPurchased" Type="int" Mode="In" />
+          <Parameter Name="PurchaseId" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="usp_UpdateCardBalance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CardNumber" Type="numeric" Mode="In" />
+          <Parameter Name="NameOnCard" Type="varchar" Mode="In" />
+          <Parameter Name="CardType" Type="char" Mode="In" />
+          <Parameter Name="CVVNumber" Type="numeric" Mode="In" />
+          <Parameter Name="ExpiryDate" Type="date" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+        </Function>
+        <EntityContainer Name="EKartDBDALStoreContainer">
+          <EntitySet Name="CardDetails" EntityType="Self.CardDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseDetails" EntityType="Self.PurchaseDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_CategoryId" Association="Self.fk_CategoryId">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmailId" Association="Self.fk_EmailId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ProductId" Association="Self.fk_ProductId">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="fkey_EmailId" Association="Self.fkey_EmailId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CardDetails" EntitySet="CardDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EKartDBDAL" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="ufn_FecthCardDetails_Result">
+          <Property Name="NameOnCard" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CardType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CVVNumber" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" />
+          <Property Name="Balance" Type="Decimal" Precision="10" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="ufn_FetchProductDetails_Result">
+          <Property Name="ProductId" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="QuantityAvailable" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ufn_GetShoppingCart_Result">
+          <Property Name="ProductId" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CategoryId" Type="Byte" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.fk_CategoryId" FromRole="Categories" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CategoryId" Type="Byte" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="QuantityAvailable" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.fk_CategoryId" FromRole="Products" ToRole="Categories" />
+          <NavigationProperty Name="PurchaseDetails" Relationship="EKartDBDAL.fk_ProductId" FromRole="Product" ToRole="PurchaseDetail" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="Self.fk_RoleId" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CategoryId" Type="Byte" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleId" Type="Byte" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressLine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.fk_RoleId" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="PurchaseDetails" Relationship="EKartDBDAL.fk_EmailId" FromRole="User" ToRole="PurchaseDetail" />
+          <NavigationProperty Name="CardDetails" Relationship="EKartDBDAL.fkey_EmailId" FromRole="User" ToRole="CardDetail" />
+        </EntityType>
+        <Association Name="fk_CategoryId">
+          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleId">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EKartDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="fk_CategoryId" Association="Self.fk_CategoryId">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="ufn_FecthCardDetails" IsComposable="true" ReturnType="Collection(EKartDBDAL.ufn_FecthCardDetails_Result)">
+          <Parameter Name="CardNumber" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="ufn_FetchProductDetails" IsComposable="true" ReturnType="Collection(EKartDBDAL.ufn_FetchProductDetails_Result)">
+          <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ufn_GetShoppingCart" IsComposable="true" ReturnType="Collection(EKartDBDAL.ufn_GetShoppingCart_Result)" />
+          <FunctionImport Name="usp_AddCardDetails">
+            <Parameter Name="CardNumber" Mode="In" Type="String" />
+            <Parameter Name="NameOnCard" Mode="In" Type="String" />
+            <Parameter Name="CardType" Mode="In" Type="String" />
+            <Parameter Name="CVVNumber" Mode="In" Type="Decimal" />
+            <Parameter Name="ExpiryDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Balance" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AddNewProduct" ReturnType="Collection(Int32)">
+            <Parameter Name="ProductId" Mode="In" Type="String" />
+            <Parameter Name="ProductName" Mode="In" Type="String" />
+            <Parameter Name="CategoryId" Mode="In" Type="Byte" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="QuantityAvailable" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AddPurchaseDetails" ReturnType="Collection(Int32)">
+            <Parameter Name="EmailId" Mode="In" Type="String" />
+            <Parameter Name="ProductId" Mode="In" Type="String" />
+            <Parameter Name="QuantityPurchased" Mode="In" Type="Int32" />
+            <Parameter Name="PurchaseId" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateCardBalance" ReturnType="Collection(Int32)">
+            <Parameter Name="CardNumber" Mode="In" Type="Decimal" />
+            <Parameter Name="NameOnCard" Mode="In" Type="String" />
+            <Parameter Name="CardType" Mode="In" Type="String" />
+            <Parameter Name="CVVNumber" Mode="In" Type="Decimal" />
+            <Parameter Name="ExpiryDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="PurchaseDetails" EntityType="EKartDBDAL.PurchaseDetail" />
+          <AssociationSet Name="fk_ProductId" Association="EKartDBDAL.fk_ProductId">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="PurchaseDetail" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmailId" Association="EKartDBDAL.fk_EmailId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PurchaseDetail" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <EntitySet Name="CardDetails" EntityType="EKartDBDAL.CardDetail" />
+          <AssociationSet Name="fkey_EmailId" Association="EKartDBDAL.fkey_EmailId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CardDetail" EntitySet="CardDetails" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="PurchaseDetail">
+          <Key>
+            <PropertyRef Name="PurchaseId" />
+          </Key>
+          <Property Name="PurchaseId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductId" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuantityPurchased" Type="Int16" Nullable="false" />
+          <Property Name="DateOfPurchase" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="EKartDBDAL.fk_ProductId" FromRole="PurchaseDetail" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="EKartDBDAL.fk_EmailId" FromRole="PurchaseDetail" ToRole="User" />
+        </EntityType>
+        <Association Name="fk_ProductId">
+          <End Type="EKartDBDAL.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="EKartDBDAL.PurchaseDetail" Role="PurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="PurchaseDetail">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmailId">
+          <End Type="EKartDBDAL.User" Role="User" Multiplicity="0..1" />
+          <End Type="EKartDBDAL.PurchaseDetail" Role="PurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="EmailId" />
+            </Principal>
+            <Dependent Role="PurchaseDetail">
+              <PropertyRef Name="EmailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CardDetail">
+          <Key>
+            <PropertyRef Name="CardNumber" />
+          </Key>
+          <Property Name="CardNumber" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="NameOnCard" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CardType" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="CVVNumber" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
+          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Balance" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="User" Relationship="EKartDBDAL.fkey_EmailId" FromRole="CardDetail" ToRole="User" />
+        </EntityType>
+        <Association Name="fkey_EmailId">
+          <End Type="EKartDBDAL.User" Role="User" Multiplicity="0..1" />
+          <End Type="EKartDBDAL.CardDetail" Role="CardDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="EmailId" />
+            </Principal>
+            <Dependent Role="CardDetail">
+              <PropertyRef Name="EmailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EKartDBDALStoreContainer" CdmEntityContainer="EKartDBContext">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="EKartDBDAL.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="EKartDBDAL.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="EKartDBDAL.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCarts">
+            <EntityTypeMapping TypeName="EKartDBDAL.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCart">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EKartDBDAL.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="EKartDBDAL.Store.ufn_FecthCardDetails" FunctionImportName="ufn_FecthCardDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EKartDBDAL.ufn_FecthCardDetails_Result">
+                <ScalarProperty Name="NameOnCard" ColumnName="NameOnCard" />
+                <ScalarProperty Name="CardType" ColumnName="CardType" />
+                <ScalarProperty Name="CVVNumber" ColumnName="CVVNumber" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="EKartDBDAL.Store.ufn_FetchProductDetails" FunctionImportName="ufn_FetchProductDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EKartDBDAL.ufn_FetchProductDetails_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="EKartDBDAL.Store.ufn_GetShoppingCart" FunctionImportName="ufn_GetShoppingCart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EKartDBDAL.ufn_GetShoppingCart_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AddCardDetails" FunctionName="EKartDBDAL.Store.usp_AddCardDetails" />
+          <FunctionImportMapping FunctionImportName="usp_AddNewProduct" FunctionName="EKartDBDAL.Store.usp_AddNewProduct" />
+          <FunctionImportMapping FunctionImportName="usp_AddPurchaseDetails" FunctionName="EKartDBDAL.Store.usp_AddPurchaseDetails" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateCardBalance" FunctionName="EKartDBDAL.Store.usp_UpdateCardBalance" />
+          <EntitySetMapping Name="PurchaseDetails">
+            <EntityTypeMapping TypeName="EKartDBDAL.PurchaseDetail">
+              <MappingFragment StoreEntitySet="PurchaseDetails">
+                <ScalarProperty Name="DateOfPurchase" ColumnName="DateOfPurchase" />
+                <ScalarProperty Name="QuantityPurchased" ColumnName="QuantityPurchased" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="PurchaseId" ColumnName="PurchaseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardDetails">
+            <EntityTypeMapping TypeName="EKartDBDAL.CardDetail">
+              <MappingFragment StoreEntitySet="CardDetails">
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="CVVNumber" ColumnName="CVVNumber" />
+                <ScalarProperty Name="CardType" ColumnName="CardType" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="NameOnCard" ColumnName="NameOnCard" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

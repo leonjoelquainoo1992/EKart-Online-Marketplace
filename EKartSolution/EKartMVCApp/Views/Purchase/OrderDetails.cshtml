@@ -1,0 +1,64 @@
+﻿@model IEnumerable<EKartMVCApp.Models.Purchase>
+
+@{
+    ViewBag.Title = "Order Details";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<div class="col-md-3">
+</div>
+<div class="col-md-7">
+    <center><h1>Your Order Details</h1></center>
+</div>
+<h4>Welcome: @Session["username"]</h4>
+<b>@Html.ActionLink("Update Profile", "UpdateCustomerDetails", "Customer")</b> ||
+<b>@Html.ActionLink("Change Password", "ChangePassword", "Customer")</b> ||
+<b>@Html.ActionLink("Recent Orders", "GetRecentPurchases", "Purchase")</b>
+<hr />
+<br />
+<table class="table" border="1">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuantityPurchased)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfPurchase)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuantityPurchased)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfPurchase)
+        </td>
+        <td>
+            @Html.ActionLink("Buy Again", "AddToCart", "Product", new { id=item.ProductId }, null)
+        </td>
+    </tr>
+}
+
+</table>
+
+<h4><b>@Html.ActionLink("Back To Recent Purchases", "GetRecentPurchases", "Purchase", null, new { @style = "color:#000aaa;" })</b></h4>
+

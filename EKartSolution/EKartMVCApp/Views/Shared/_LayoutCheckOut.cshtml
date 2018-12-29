@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Order placed successfully";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<head>
+    <style>
+        #color{
+            color:blue;
+        }
+
+        body{
+            background-color:antiquewhite;
+        }
+    </style>
+
+    <script>
+        function redirectOnClick() {
+            document.location = 'Category/ViewCategories';
+        }
+    </script>
+</head>
+<body>
+    <br />
+    <h3>Thank you for your purchase!</h3>
+    <br />
+    <h4>Your order number is:</h4><h4 id="color">@ViewBag.OrderNumber</h4>
+    <h4>We'll email you order confirmation details and tracking info</h4>
+    <div class="form-group">
+        <div class="col-md-4">
+            <input type="button" value="Continue Shopping" class="btn-primary" id="shoppingBtn" onclick="window.location='@Url.Action("ViewCategories", "Category")'"/>
+        </div>
+    </div>
+</body>

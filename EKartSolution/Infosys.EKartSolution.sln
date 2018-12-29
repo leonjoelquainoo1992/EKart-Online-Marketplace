@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EKartMVCApp", "EKartMVCApp\EKartMVCApp.csproj", "{969D7901-9C2E-4A19-949D-DE75C1B7CD1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EKartDataAccessLayer", "EKartDataAccessLayer\EKartDataAccessLayer.csproj", "{0AB16974-3DCC-4A4F-8FCF-A1419A169685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EKartWebServices", "EKartWebServices\EKartWebServices.csproj", "{7C78C4D1-4CE5-4A3B-95FC-2B1327FA443C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{227D9921-630D-47B6-A866-7B37399803F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{969D7901-9C2E-4A19-949D-DE75C1B7CD1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{969D7901-9C2E-4A19-949D-DE75C1B7CD1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{969D7901-9C2E-4A19-949D-DE75C1B7CD1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{969D7901-9C2E-4A19-949D-DE75C1B7CD1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB16974-3DCC-4A4F-8FCF-A1419A169685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB16974-3DCC-4A4F-8FCF-A1419A169685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB16974-3DCC-4A4F-8FCF-A1419A169685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB16974-3DCC-4A4F-8FCF-A1419A169685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C78C4D1-4CE5-4A3B-95FC-2B1327FA443C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C78C4D1-4CE5-4A3B-95FC-2B1327FA443C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C78C4D1-4CE5-4A3B-95FC-2B1327FA443C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C78C4D1-4CE5-4A3B-95FC-2B1327FA443C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{227D9921-630D-47B6-A866-7B37399803F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{227D9921-630D-47B6-A866-7B37399803F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{227D9921-630D-47B6-A866-7B37399803F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{227D9921-630D-47B6-A866-7B37399803F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

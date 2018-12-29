@@ -1,0 +1,142 @@
+﻿@model EKartMVCApp.Models.Login
+
+@{
+    ViewBag.Title = "LogIn";
+}
+
+<head>
+    <style>
+        #btnLogIn {
+            color: white;
+            background-color: crimson;
+            height: 40px;
+            width: 110px;
+            border-radius: 13px;
+            text-wrap: normal;
+            margin-left: 19px;
+        }
+
+        body {
+            background-image: url('../../Content/Backgrounds/img (1).jpg');
+        }
+
+        #labels {
+            color: white;
+            font-size: larger;
+        }
+
+        #Heading {
+            color: white;
+            font-family: 'Comic Sans MS';
+        }
+
+        #avatar_image {
+            height: 110px;
+            width: 107px;
+        }
+
+        #signUp {
+            color: white;
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("LogIn", "User"))
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    &nbsp;
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="container">
+
+                            @*Image and Heading*@
+                            <div class="row">
+                                <div class="col-md-2 text-center col-lg-offset-3">
+                                    <h1 id="Heading">Log In</h1>
+                                    &nbsp;
+                                </div>
+                            </div>
+
+                            @*Email Id*@
+                            <div class="row">
+                                <div class="col-md-2 text-right" id="labels">
+                                    Email:
+                                </div>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new {@class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            @*password*@
+                            <div class="row">
+                                <div class="col-md-2 text-right" id="labels">
+                                    Password:
+                                </div>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UserPassword, "",new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            @*Remember Me?*@
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    Remember Me:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.CheckBox("Remember Me", false)
+                                    @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                @*Login Button*@
+                                <div class="col-md-2 text-right col-lg-offset-1">
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="submit" class="btn" value="Log In" id="btnLogIn" />
+                                </div><br /><br />
+
+                                @*Forget your password*@
+                                <div class="col-md-3 text-right">
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="text--center" id="forgotYourPassword">@Html.ActionLink("Forgot your Password?", "ForgetPassword", "User")</p>
+                                    <p class="text--center" id="signUp">Not a member?&nbsp;@Html.ActionLink("Sign Up", "RegisterNewUser", "User")</p>
+                                </div>
+                            </div>
+
+                            @*Footer space*@
+                            <div class="row">
+                                <div class="col-md-2 text-right">
+                                </div>
+                                <div class="col-md-7">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

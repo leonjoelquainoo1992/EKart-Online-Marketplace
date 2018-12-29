@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7be12d117d304db2b62a244461aea0d3" Name="Diagram1">
+        <EntityTypeShape EntityType="EKartDBDAL.Category" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="EKartDBDAL.Product" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EKartDBDAL.Role" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="EKartDBDAL.ShoppingCart" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EKartDBDAL.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="EKartDBDAL.fk_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="EKartDBDAL.fk_RoleId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EKartDBDAL.PurchaseDetail" Width="1.5" PointX="5.25" PointY="1.25" />
+        <AssociationConnector Association="EKartDBDAL.fk_ProductId" />
+        <AssociationConnector Association="EKartDBDAL.fk_EmailId" />
+        <EntityTypeShape EntityType="EKartDBDAL.CardDetail" Width="1.5" PointX="5.625" PointY="6" />
+        <AssociationConnector Association="EKartDBDAL.fkey_EmailId" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

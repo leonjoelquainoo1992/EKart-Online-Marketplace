@@ -1,0 +1,212 @@
+﻿@model EKartMVCApp.Models.Users
+
+@{
+    ViewBag.Title = "New User Registeration";
+}
+<head>
+    <style type="text/css">
+        body {
+            background-image: url('../../Content/Backgrounds/img (4).jpg');
+        }
+
+        #heading {
+            color: white;
+            font-size: 35px;
+            font-family: 'Comic Sans MS';
+        }
+
+        #btnRegister {
+            color: white;
+            background-color: crimson;
+            height: 40px;
+            width: 100px;
+            border-radius: 13px;
+            text-wrap: normal;
+        }
+
+        #btnCancel {
+            color: white;
+            background-color: crimson;
+            height: 40px;
+            width: 100px;
+            border-radius: 13px;
+            text-wrap: normal;
+        }
+
+        #labels {
+            color: white;
+            font-size:medium;
+        }
+
+        #form_body {
+            background-image: url('../../Content/Backgrounds/img11 (1).jpg');
+        }
+    </style>
+
+</head>
+<body>
+    @using (Html.BeginForm("RegisterNewuser","User"))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    &nbsp;
+                </div>
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                    </div>
+                    <div class="col-md-7" id="form_body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-9 text-center">
+                                    <h1 id="heading">Sign Up</h1>
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    First Name:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" , id="labels">
+                                    Last Name:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" , id="labels">
+                                    Email ID:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" , id="labels">
+                                    Password:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" , id="labels">
+                                    Confirm Password:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    Phone Number:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { style = "width:240px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    Address Line1:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    City:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { style = "width:240px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    State:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.State, new { htmlAttributes = new { style = "width:240px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    ZipCode:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { style = "width:180px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                    Country:
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.Country, new { htmlAttributes = new { style = "width:230px", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" id="labels">
+                                </div>
+                                <div class="col-md-6 text-center-right">
+                                    <input type="submit" class="btn" value="Register" id="btnRegister" />
+                                </div>
+                                &nbsp;
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+<div>
+    <h4><b>@Html.ActionLink("Back to Log In", "Login", "User", null, new { @style = "color:#000aaa;" })</b></h4>
+</div>
+
