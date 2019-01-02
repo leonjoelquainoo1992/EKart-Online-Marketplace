@@ -68,6 +68,10 @@ namespace EKartMVCApp.Controllers
 
         public ActionResult Contact(Models.Contact contact)
         {
+            ViewBag.ContactFirstName = Session["firstName"];
+            ViewBag.ContactLastName = Session["lastName"];
+            ViewBag.ContactEmail = Session["email"];
+            ViewBag.ContactPhone = Session["phone"];
             if (ModelState.IsValid)
             {
                 return View("_LayoutMessageSent");
