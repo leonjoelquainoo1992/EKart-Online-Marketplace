@@ -46,7 +46,9 @@ namespace EKartMVCApp.Controllers
                 {
                     Session["username"] = dal.GetCurrentUser().LastName;
                     Session["email"] = dal.GetCurrentUser().EmailId;
-                    Session["fullname"] = dal.GetCurrentUser().FirstName + " " + dal.GetCurrentUser().LastName;
+                    Session["firstName"] = dal.GetCurrentUser().FirstName;
+                    Session["lastName"] = dal.GetCurrentUser().LastName;
+                    Session["phone"] = dal.GetCurrentUser().PhoneNumber;
                     return Redirect("/Category/ViewCategories?username=" + Session["username"]);
                 }
                 else
