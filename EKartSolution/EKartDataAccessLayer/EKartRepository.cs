@@ -320,45 +320,6 @@ namespace EKartDataAccessLayer
             return status;
         }
 
-        //Adds Payment Method - Credit Card
-        //public int AddCardDetails(string cardNumber, string nameOnCard, string cardType, decimal CVV, DateTime expiryDate)
-        //{
-        //    SqlConnection conEKart = null;
-        //    SqlCommand cmdEKart = null;
-        //    int returnVal = -1;
-        //    decimal balance = Convert.ToDecimal(NextDouble(new Random(), 2000000, 700000));
-        //    conEKart = new SqlConnection(connectionString);
-        //    cmdEKart = new SqlCommand("usp_AddCardDetails", conEKart);
-        //    cmdEKart.CommandType = CommandType.StoredProcedure;
-        //    cmdEKart.Parameters.AddWithValue("@CardNumber", cardNumber);
-        //    cmdEKart.Parameters.AddWithValue("@NameOnCard", nameOnCard);
-        //    cmdEKart.Parameters.AddWithValue("@CardType", cardType);
-        //    cmdEKart.Parameters.AddWithValue("@CVVNumber", CVV);
-        //    cmdEKart.Parameters.AddWithValue("@ExpiryDate", expiryDate);
-        //    cmdEKart.Parameters.AddWithValue("@Balance", balance);
-
-        //    // Adding an return parameter to SqlCommand object
-        //    SqlParameter prmReturn = new SqlParameter();
-        //    prmReturn.Direction = ParameterDirection.ReturnValue;
-        //    try
-        //    {
-        //        cmdEKart.Parameters.Add(prmReturn);
-        //        conEKart.Open();
-        //        cmdEKart.ExecuteNonQuery();
-        //        returnVal = Convert.ToInt32(prmReturn.Value);
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        returnVal = -1;
-        //    }
-        //    finally
-        //    {
-        //        conEKart.Close();
-        //    }
-        //    return returnVal;
-        //}
-
         public bool AddCreditCardDetails(string email, string cardNumber, string nameOnCard, string cardType, decimal CVVNumber, DateTime expiryDate)
         {
             CardDetail creditCard = new CardDetail();
